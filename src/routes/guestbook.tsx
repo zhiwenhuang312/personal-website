@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { getVisitors } from "@/lib/visitors.functions";
 import { WorldMap } from "@/components/WorldMap";
 
-const visitorsQueryOptions = (fn: ReturnType<typeof useServerFn<typeof getVisitors>>) =>
+const visitorsQueryOptions = (fn: () => ReturnType<typeof getVisitors>) =>
   queryOptions({
     queryKey: ["visitors"],
     queryFn: () => fn(),
