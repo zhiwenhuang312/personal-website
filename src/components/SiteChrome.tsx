@@ -6,8 +6,6 @@ const nav = [
   { to: "/publications", label: "Publications" },
   { to: "/cv", label: "CV" },
   { to: "/photography", label: "Photography" },
-  { to: "/guestbook", label: "Guestbook" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
