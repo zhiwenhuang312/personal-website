@@ -1,4 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { getVisitors } from "@/lib/visitors.functions";
+import { WorldMap } from "@/components/WorldMap";
+
+const visitorsQueryOptions = (fn: () => ReturnType<typeof getVisitors>) =>
+  queryOptions({
+    queryKey: ["visitors"],
+    queryFn: () => fn(),
+    staleTime: 60_000,
+  });
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -13,6 +25,12 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+function VisitorMap() {
+  const fn = useServerFn(getVisitors);
+  const { data } = useSuspenseQuery(visitorsQueryOptions(fn));
+  return <WorldMap points={data.points} />;
+}
 
 function Home() {
   return (
@@ -128,6 +146,82 @@ function Home() {
         >
           See all research →
         </Link>
+      </section>
+
+      <div className="hairline my-20" />
+
+      <section id="contact" className="grid lg:grid-cols-2 gap-12">
+        <div>
+          <div className="small-caps">Get in touch</div>
+          <h2 className="mt-3 font-serif text-4xl text-foreground">Contact</h2>
+          <p className="mt-4 max-w-md text-muted-foreground">
+            Always happy to discuss research collaborations, internships, or
+            just operations research in general.
+          </p>
+
+          <dl className="mt-8 space-y-6">
+            <div>
+              <dt className="small-caps">Email</dt>
+              <dd className="mt-1 font-serif text-lg">
+                <a className="link-gold" href="mailto:zhiwenh@clemson.edu">
+                  zhiwenh@clemson.edu
+                </a>
+              </dd>
+              <dd className="text-sm text-muted-foreground">
+                <a className="link-gold" href="mailto:zhiwenhuang312@gmail.com">
+                  zhiwenhuang312@gmail.com
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="small-caps">Phone</dt>
+              <dd className="mt-1 font-serif text-lg text-foreground">
+                +1 864 650 2226
+              </dd>
+            </div>
+            <div>
+              <dt className="small-caps">Affiliation</dt>
+              <dd className="mt-1 text-foreground">
+                Department of Industrial Engineering
+                <br />
+                Clemson University · Clemson, SC 29631, USA
+              </dd>
+            </div>
+            <div>
+              <dt className="small-caps">Elsewhere</dt>
+              <dd className="mt-1">
+                <a
+                  className="link-gold"
+                  href="https://scholar.google.com/citations?user=Ui_llDYAAAAJ&hl=zh-CN"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Google Scholar
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div>
+          <div className="small-caps">Visitors</div>
+          <h2 className="mt-3 font-serif text-4xl text-foreground">
+            Where you're reading from
+          </h2>
+          <p className="mt-4 max-w-md text-muted-foreground">
+            Every visit lights up a point on the map. IPs are hashed before
+            storage.
+          </p>
+          <div className="mt-8">
+            <Suspense
+              fallback={
+                <div className="h-[320px] rounded-xl border border-border bg-card/30 animate-pulse" />
+              }
+            >
+              <VisitorMap />
+            </Suspense>
+          </div>
+        </div>
       </section>
     </div>
   );
