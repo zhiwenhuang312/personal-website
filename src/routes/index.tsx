@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-import { WorldMap } from "@/components/WorldMap";
-
 const profilePhotoSrc = `${import.meta.env.BASE_URL}profile/zhiwen-huang.jpg`;
 
 export const Route = createFileRoute("/")({
@@ -152,18 +150,6 @@ function Home() {
           </p>
         </div>
         <div className="hairline mt-8" />
-      </section>
-
-      <section>
-        <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
-          Where you&apos;re reading from
-        </h2>
-        <p className="mt-3 max-w-md text-base leading-8 text-muted-foreground sm:text-lg">
-          A world map backdrop for readers joining from across regions.
-        </p>
-        <div className="mt-6 max-w-3xl">
-          <WorldMap points={[]} />
-        </div>
       </section>
     </div>
   );
