@@ -7,7 +7,7 @@ const nav = [
   { to: "/photography", label: "Photography" },
 ] as const;
 
-const navBackgroundSrc = "/header/nav-bg.png";
+const navBackgroundSrc = `${import.meta.env.BASE_URL}header/nav-bg.png`;
 
 export function SiteHeader() {
   return (

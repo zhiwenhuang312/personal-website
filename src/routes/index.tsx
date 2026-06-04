@@ -1,38 +1,13 @@
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { Suspense, useState } from "react";
+import { useState } from "react";
+
 import { WorldMap } from "@/components/WorldMap";
-import { getVisitors } from "@/lib/visitors.functions";
 
-const profilePhotoSrc = "/profile/zhiwen-huang.jpg";
-
-const visitorsQueryOptions = (fn: () => ReturnType<typeof getVisitors>) =>
-  queryOptions({
-    queryKey: ["visitors"],
-    queryFn: () => fn(),
-    staleTime: 60_000,
-  });
+const profilePhotoSrc = `${import.meta.env.BASE_URL}profile/zhiwen-huang.jpg`;
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Zhiwen (Ivan) Huang - Operations Research, Clemson" },
-      {
-        name: "description",
-        content:
-          "PhD student in Industrial Engineering (OR Track) at Clemson University. Research on multi-stage stochastic optimization with decision-dependent uncertainty.",
-      },
-    ],
-  }),
   component: Home,
 });
-
-function VisitorMap() {
-  const fn = useServerFn(getVisitors);
-  const { data } = useSuspenseQuery(visitorsQueryOptions(fn));
-  return <WorldMap points={data.points} />;
-}
 
 function ProfilePhoto() {
   const [photoAvailable, setPhotoAvailable] = useState(true);
@@ -93,7 +68,7 @@ function ContactLinks() {
 
 function Home() {
   return (
-    <div className="mx-auto max-w-5xl px-6 pt-20 pb-12">
+    <div className="mx-auto max-w-5xl px-6 pb-12 pt-20">
       <section className="relative noise grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div>
           <h1 className="mt-4 font-serif text-4xl leading-[1.05] text-foreground sm:text-4xl">
@@ -119,11 +94,10 @@ function Home() {
             >
               Yongjia Song
             </a>
-            . My research focuses on optimization under uncertainty 
-            , integrating methods from operations research and AI to support
-            sequential decision-making in transportation, logistics, disaster
-            relief, and pricing. I have also had the privilege of
-            collaborating with{" "}
+            . My research focuses on optimization under uncertainty, integrating
+            methods from operations research and AI to support sequential
+            decision-making in transportation, logistics, disaster relief, and
+            pricing. I have also had the privilege of collaborating with{" "}
             <a
               className="link-gold"
               href="https://mervebodur.github.io/"
@@ -156,7 +130,8 @@ function Home() {
           Education
         </h2>
         <p className="mt-3 whitespace-nowrap text-base leading-8 text-muted-foreground sm:text-lg">
-          Ph.D. in Industrial Engineering (Operations Research Track), Clemson University, 2024 Aug. - present.
+          Ph.D. in Industrial Engineering (Operations Research Track), Clemson
+          University, 2024 Aug. - present.
         </p>
         <div className="hairline mt-8" />
       </section>
@@ -167,12 +142,13 @@ function Home() {
         </h2>
         <div className="mt-3 space-y-3 text-base leading-8 text-muted-foreground sm:text-lg">
           <p>
-            <span className="text-foreground">Methodology:</span>{" "}
-            Contexual optimization, stochastic optimization, sequential decision-making, optimization under uncertainty.
+            <span className="text-foreground">Methodology:</span> Contexual
+            optimization, stochastic optimization, sequential decision-making,
+            optimization under uncertainty.
           </p>
           <p>
-            <span className="text-foreground">Applications:</span>{" "}
-            Disaster relief logistics, transportation, pricing, supply chain management.
+            <span className="text-foreground">Applications:</span> Disaster
+            relief logistics, transportation, pricing, supply chain management.
           </p>
         </div>
         <div className="hairline mt-8" />
@@ -180,19 +156,13 @@ function Home() {
 
       <section>
         <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
-          Where you're reading from
+          Where you&apos;re reading from
         </h2>
         <p className="mt-3 max-w-md text-base leading-8 text-muted-foreground sm:text-lg">
-          Every visit lights up a point on the map.
+          A world map backdrop for readers joining from across regions.
         </p>
         <div className="mt-6 max-w-3xl">
-          <Suspense
-            fallback={
-              <div className="h-[320px] animate-pulse rounded-xl border border-border bg-card/30" />
-            }
-          >
-            <VisitorMap />
-          </Suspense>
+          <WorldMap points={[]} />
         </div>
       </section>
     </div>
