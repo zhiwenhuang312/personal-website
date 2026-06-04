@@ -1,5 +1,5 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Suspense, useState } from "react";
 import { WorldMap } from "@/components/WorldMap";
@@ -38,18 +38,18 @@ function ProfilePhoto() {
   const [photoAvailable, setPhotoAvailable] = useState(true);
 
   return (
-    <div className="relative mx-auto w-full max-w-sm lg:mx-0">
-      <div className="absolute inset-6 rounded-[2rem] bg-gold/10 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-gold/20 bg-card/70 p-3 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)] backdrop-blur">
+    <div className="relative mx-auto w-full max-w-[19rem] lg:mx-0">
+      <div className="absolute inset-6 rounded-full bg-gold/10 blur-3xl" />
+      <div className="relative shadow-[0_24px_80px_-48px_rgba(0,0,0,0.95)]">
         {photoAvailable ? (
           <img
             src={profilePhotoSrc}
             alt="Portrait of Zhiwen Huang"
-            className="aspect-[4/5] w-full rounded-[1.45rem] object-cover"
+            className="aspect-[4/4] w-full rounded-full object-cover"
             onError={() => setPhotoAvailable(false)}
           />
         ) : (
-          <div className="flex aspect-[4/5] w-full flex-col justify-end rounded-[1.45rem] border border-dashed border-gold/35 bg-gradient-to-br from-gold/10 via-card to-indigo-glow/15 p-6">
+          <div className="flex aspect-[4/5] w-full flex-col justify-end rounded-full border border-dashed border-gold/35 bg-gradient-to-br from-gold/10 via-card to-indigo-glow/15 p-6">
             <div className="small-caps">Profile photo</div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Add your image at{" "}
@@ -65,60 +65,52 @@ function ProfilePhoto() {
   );
 }
 
+function ContactLinks() {
+  return (
+    <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm sm:text-base">
+      <a className="link-gold" href="mailto:zhiwenh@clemson.edu">
+        Email
+      </a>
+      <a
+        className="link-gold"
+        href="https://scholar.google.com/citations?user=Ui_llDYAAAAJ&hl=zh-CN"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Google Scholar
+      </a>
+      <a
+        className="link-gold"
+        href="https://www.linkedin.com/in/zhiwen-ivan-huang-53b0282a0"
+        target="_blank"
+        rel="noreferrer"
+      >
+        LinkedIn
+      </a>
+    </div>
+  );
+}
+
 function Home() {
   return (
     <div className="mx-auto max-w-5xl px-6 pt-20 pb-12">
-      <section className="relative noise grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <section className="relative noise grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div>
-          <div className="small-caps">Industrial Engineering &middot; OR Track</div>
-          <h1 className="mt-4 font-serif text-5xl leading-[1.05] text-foreground sm:text-7xl">
-            Zhiwen <span className="text-gold glow-gold">(Ivan)</span> Huang
+          <h1 className="mt-4 font-serif text-4xl leading-[1.05] text-foreground sm:text-4xl">
+            Zhiwen (Ivan) Huang
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Second-year Ph.D. student at{" "}
-            <span className="text-foreground">Clemson University</span>, working
-            at the intersection of operations research and AI. My research
-            focuses on{" "}
-            <span className="text-foreground">
-              multi-stage stochastic optimization with decision-dependent
-              uncertainty
-            </span>{" "}
-            - with applications across transportation, logistics, disaster
-            relief, and pricing.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              to="/research"
-              className="rounded-full border border-gold/50 px-5 py-2 text-sm text-gold transition-colors hover:bg-gold/10"
+          <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+            I am a Ph.D. student in the{" "}
+            <a
+              className="link-gold"
+              href="https://www.clemson.edu/cecas/departments/ie/index.html"
+              target="_blank"
+              rel="noreferrer"
             >
-              Research &rarr;
-            </Link>
-            <Link
-              to="/publications"
-              className="rounded-full border border-border px-5 py-2 text-sm transition-colors hover:bg-secondary"
-            >
-              Publications
-            </Link>
-            <Link
-              to="/cv"
-              className="rounded-full border border-border px-5 py-2 text-sm transition-colors hover:bg-secondary"
-            >
-              CV
-            </Link>
-          </div>
-        </div>
-
-        <ProfilePhoto />
-      </section>
-
-      <div className="hairline my-20" />
-
-      <section className="grid gap-8 sm:grid-cols-3">
-        <div>
-          <div className="small-caps">Currently</div>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Graduate Research Assistant with{" "}
+              Department of Industrial Engineering at Clemson University
+              (Operations Research Track)
+            </a>
+            , advised by{" "}
             <a
               className="link-gold"
               href="https://sites.google.com/site/yongjiasongshom/"
@@ -127,152 +119,80 @@ function Home() {
             >
               Yongjia Song
             </a>
-            . Developing model-based ADP for large-scale evacuation planning.
+            . My research focuses on optimization under uncertainty 
+            , integrating methods from operations research and AI to support
+            sequential decision-making in transportation, logistics, disaster
+            relief, and pricing. I have also had the privilege of
+            collaborating with{" "}
+            <a
+              className="link-gold"
+              href="https://mervebodur.github.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Merve Bodur
+            </a>{" "}
+            and{" "}
+            <a
+              className="link-gold"
+              href="https://sites.google.com/view/margaritacastro"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Margarita Paz Castro
+            </a>
+            .
           </p>
+          <ContactLinks />
         </div>
-        <div>
-          <div className="small-caps">Next</div>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Incoming Data Scientist Intern at{" "}
-            <span className="text-foreground">
-              Universal Destinations &amp; Experiences
-            </span>{" "}
-            - Global Pricing Analytics, Fall 2026.
-          </p>
-        </div>
-        <div>
-          <div className="small-caps">Interests</div>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Stochastic programming &middot; ADP &middot; Contextual optimization
-            &middot; Reinforcement learning &middot; Disaster relief logistics
-          </p>
-        </div>
+
+        <ProfilePhoto />
       </section>
 
-      <div className="hairline my-20" />
+      <div className="hairline my-16" />
 
       <section>
-        <div className="small-caps">Selected Work</div>
-        <ul className="mt-6 divide-y divide-border">
-          {[
-            {
-              title:
-                "Sequential Decision Optimization for Disaster Relief Logistics",
-              note:
-                "Multi-stage stochastic optimization w/ decision-dependent uncertainty - 60% gap reduction via tailored cutting planes",
-            },
-            {
-              title:
-                "Stochastic Network Design under Endogenous & Exogenous Uncertainty",
-              note: "Decomposition for resilient infrastructure planning",
-            },
-            {
-              title: "On-Demand Food Order Assignment & Rider Routing",
-              note: "MIP joint assignment + routing on Meituan's real-world data",
-            },
-          ].map((item) => (
-            <li
-              key={item.title}
-              className="flex flex-col gap-2 py-4 sm:flex-row sm:items-baseline sm:gap-6"
-            >
-              <h3 className="font-serif text-xl text-foreground sm:flex-1">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted-foreground sm:max-w-sm">
-                {item.note}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <Link
-          to="/research"
-          className="mt-6 inline-block text-sm text-gold hover:opacity-80"
-        >
-          See all research &rarr;
-        </Link>
+        <h2 className="font-serif text-2xl leading-tight text-foreground sm:text-3xl">
+          Education
+        </h2>
+        <p className="mt-3 whitespace-nowrap text-base leading-8 text-muted-foreground sm:text-lg">
+          Ph.D. in Industrial Engineering (Operations Research Track), Clemson University, 2024 Aug. - present.
+        </p>
+        <div className="hairline mt-8" />
       </section>
 
-      <div className="hairline my-20" />
-
-      <section id="contact" className="grid gap-12 lg:grid-cols-2">
-        <div>
-          <div className="small-caps">Get in touch</div>
-          <h2 className="mt-3 font-serif text-4xl text-foreground">Contact</h2>
-          <p className="mt-4 max-w-md text-muted-foreground">
-            Always happy to discuss research collaborations, internships, or
-            just operations research in general.
+      <section className="mt-10 max-w-4xl">
+        <h2 className="font-serif text-2xl leading-tight text-foreground sm:text-3xl">
+          Research Interests
+        </h2>
+        <div className="mt-3 space-y-3 text-base leading-8 text-muted-foreground sm:text-lg">
+          <p>
+            <span className="text-foreground">Methodology:</span>{" "}
+            Contexual optimization, stochastic optimization, sequential decision-making, optimization under uncertainty.
           </p>
-
-          <dl className="mt-8 space-y-6">
-            <div>
-              <dt className="small-caps">Email</dt>
-              <dd className="mt-1 font-serif text-lg">
-                <a className="link-gold" href="mailto:zhiwenh@clemson.edu">
-                  zhiwenh@clemson.edu
-                </a>
-              </dd>
-              <dd className="text-sm text-muted-foreground">
-                <a className="link-gold" href="mailto:zhiwenhuang312@gmail.com">
-                  zhiwenhuang312@gmail.com
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="small-caps">Phone</dt>
-              <dd className="mt-1 font-serif text-lg text-foreground">
-                +1 864 650 2226
-              </dd>
-            </div>
-            <div>
-              <dt className="small-caps">Affiliation</dt>
-              <dd className="mt-1 text-foreground">
-                Department of Industrial Engineering
-                <br />
-                Clemson University &middot; Clemson, SC 29631, USA
-              </dd>
-            </div>
-            <div>
-              <dt className="small-caps">Elsewhere</dt>
-              <dd className="mt-1 flex flex-col items-start gap-2">
-                <a
-                  className="link-gold"
-                  href="https://scholar.google.com/citations?user=Ui_llDYAAAAJ&hl=zh-CN"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Google Scholar
-                </a>
-                <a
-                  className="link-gold"
-                  href="https://www.linkedin.com/in/zhiwen-huang-53b0282a0/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </dd>
-            </div>
-          </dl>
+          <p>
+            <span className="text-foreground">Applications:</span>{" "}
+            Disaster relief logistics, transportation, pricing, supply chain management.
+          </p>
         </div>
+        <div className="hairline mt-8" />
+      </section>
 
-        <div>
-          <div className="small-caps">Visitors</div>
-          <h2 className="mt-3 font-serif text-4xl text-foreground">
-            Where you're reading from
-          </h2>
-          <p className="mt-4 max-w-md text-muted-foreground">
-            Every visit lights up a point on the map. IPs are hashed before
-            storage.
-          </p>
-          <div className="mt-8">
-            <Suspense
-              fallback={
-                <div className="h-[320px] animate-pulse rounded-xl border border-border bg-card/30" />
-              }
-            >
-              <VisitorMap />
-            </Suspense>
-          </div>
+      <section>
+        <h2 className="mt-2 font-serif text-2xl text-foreground sm:text-3xl">
+          Where you're reading from
+        </h2>
+        <p className="mt-3 max-w-md text-base leading-8 text-muted-foreground sm:text-lg">
+          Every visit lights up a point on the map.
+        </p>
+        <div className="mt-6 max-w-3xl">
+          <Suspense
+            fallback={
+              <div className="h-[320px] animate-pulse rounded-xl border border-border bg-card/30" />
+            }
+          >
+            <VisitorMap />
+          </Suspense>
         </div>
       </section>
     </div>

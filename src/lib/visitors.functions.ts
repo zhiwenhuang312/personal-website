@@ -12,6 +12,12 @@ type GeoData = {
   lng?: number;
 };
 
+function hasSupabaseAdminEnv(): boolean {
+  return Boolean(
+    process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY,
+  );
+}
+
 async function lookupGeo(ip: string): Promise<GeoData | null> {
   try {
     const res = await fetch(`https://ipapi.co/${ip}/json/`, {
@@ -49,6 +55,10 @@ function extractIp(headers: Record<string, string | undefined>): string | null {
 
 export const recordVisit = createServerFn({ method: "POST" }).handler(
   async () => {
+    if (!hasSupabaseAdminEnv()) {
+      return { ok: true, skipped: true as const };
+    }
+
     const headers = getRequestHeaders() as Record<string, string | undefined>;
     const ip = extractIp(headers);
 
@@ -107,6 +117,10 @@ export const recordVisit = createServerFn({ method: "POST" }).handler(
 
 export const getVisitors = createServerFn({ method: "GET" }).handler(
   async () => {
+    if (!hasSupabaseAdminEnv()) {
+      return { points: [], recent: [], totalVisits: 0, totalCountries: 0 };
+    }
+
     const { data, error } = await supabaseAdmin
       .from("visitors")
       .select("country, country_code, city, lat, lng, created_at")

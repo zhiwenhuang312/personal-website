@@ -10,9 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResearchRouteImport } from './routes/research'
-import { Route as PublicationsRouteImport } from './routes/publications'
 import { Route as PhotographyRouteImport } from './routes/photography'
-import { Route as CvRouteImport } from './routes/cv'
+import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ResearchRoute = ResearchRouteImport.update({
@@ -20,19 +19,14 @@ const ResearchRoute = ResearchRouteImport.update({
   path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicationsRoute = PublicationsRouteImport.update({
-  id: '/publications',
-  path: '/publications',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PhotographyRoute = PhotographyRouteImport.update({
   id: '/photography',
   path: '/photography',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CvRoute = CvRouteImport.update({
-  id: '/cv',
-  path: '/cv',
+const ActivitiesRoute = ActivitiesRouteImport.update({
+  id: '/activities',
+  path: '/activities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,39 +37,35 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cv': typeof CvRoute
+  '/activities': typeof ActivitiesRoute
   '/photography': typeof PhotographyRoute
-  '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cv': typeof CvRoute
+  '/activities': typeof ActivitiesRoute
   '/photography': typeof PhotographyRoute
-  '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cv': typeof CvRoute
+  '/activities': typeof ActivitiesRoute
   '/photography': typeof PhotographyRoute
-  '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cv' | '/photography' | '/publications' | '/research'
+  fullPaths: '/' | '/activities' | '/photography' | '/research'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cv' | '/photography' | '/publications' | '/research'
-  id: '__root__' | '/' | '/cv' | '/photography' | '/publications' | '/research'
+  to: '/' | '/activities' | '/photography' | '/research'
+  id: '__root__' | '/' | '/activities' | '/photography' | '/research'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CvRoute: typeof CvRoute
+  ActivitiesRoute: typeof ActivitiesRoute
   PhotographyRoute: typeof PhotographyRoute
-  PublicationsRoute: typeof PublicationsRoute
   ResearchRoute: typeof ResearchRoute
 }
 
@@ -88,13 +78,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/publications': {
-      id: '/publications'
-      path: '/publications'
-      fullPath: '/publications'
-      preLoaderRoute: typeof PublicationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/photography': {
       id: '/photography'
       path: '/photography'
@@ -102,11 +85,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PhotographyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cv': {
-      id: '/cv'
-      path: '/cv'
-      fullPath: '/cv'
-      preLoaderRoute: typeof CvRouteImport
+    '/activities': {
+      id: '/activities'
+      path: '/activities'
+      fullPath: '/activities'
+      preLoaderRoute: typeof ActivitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,11 +104,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CvRoute: CvRoute,
+  ActivitiesRoute: ActivitiesRoute,
   PhotographyRoute: PhotographyRoute,
-  PublicationsRoute: PublicationsRoute,
   ResearchRoute: ResearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
