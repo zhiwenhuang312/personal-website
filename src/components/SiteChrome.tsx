@@ -21,7 +21,7 @@ export function SiteHeader() {
       />
       <div className="absolute inset-0 bg-[rgba(12,16,20,0.45)] backdrop-blur-[1px]" />
       <div className="relative mx-auto flex h-32 max-w-6xl items-center justify-center px-6">
-        <nav className="flex items-center gap-2 text-base sm:gap-3">
+        <nav className="flex items-center gap-2 text-lg sm:gap-3">
           {nav.map((item) => (
             <Link
               key={item.to}
