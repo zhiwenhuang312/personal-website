@@ -83,7 +83,7 @@ function Home() {
               Department of Industrial Engineering at Clemson University
               (Operations Research Track)
             </a>
-            , advised by{" "}
+            , advised by Prof.{" "}
             <a
               className="link-gold"
               href="https://sites.google.com/site/yongjiasongshom/"
@@ -95,7 +95,7 @@ function Home() {
             . My research focuses on optimization under uncertainty, integrating
             methods from operations research and AI to support sequential
             decision-making in transportation, logistics, disaster relief, and
-            pricing. I have also had the privilege of collaborating with{" "}
+            pricing. I have also had the privilege of collaborating with Prof.{" "}
             <a
               className="link-gold"
               href="https://mervebodur.github.io/"
@@ -104,7 +104,7 @@ function Home() {
             >
               Merve Bodur
             </a>{" "}
-            and{" "}
+            and Prof.{" "}
             <a
               className="link-gold"
               href="https://sites.google.com/view/margaritacastro"
