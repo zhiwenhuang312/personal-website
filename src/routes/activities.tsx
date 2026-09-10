@@ -23,7 +23,7 @@ const teaching = [
 ];
 
 const industrialExperience = [
-  "2026 Incoming Data Scientist Intern, Global Pricing & Analytics Team, Universal Destinations & Experiences, Orlando, FL",
+  "Data Scientist Intern, Global Pricing & Analytics Team, Universal Orlando Resort, Orlando, FL, 2026 Fall",
 ];
 
 const service = [
