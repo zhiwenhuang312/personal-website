@@ -73,7 +73,7 @@ function Home() {
             Zhiwen (Ivan) Huang
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-            I am a Ph.D. student in the{" "}
+            I am a Ph.D. candidate in the{" "}
             <a
               className="link-gold"
               href="https://www.clemson.edu/cecas/departments/ie/index.html"
