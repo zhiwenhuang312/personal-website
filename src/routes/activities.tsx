@@ -30,7 +30,8 @@ const service = [
   "Journal Reviewer, Reliability Engineering & System Safety",
   "2025-present Co-organizer, INFORMS-HFES Mentor-Mentee Program, Clemson University",
   "2024-present Member, Graduate Student Advisory Board, Clemson University",
-  "2025-present Vice President, Clemson INFORMS Student Chapter, Clemson University",
+  "2025-2026 Vice President, Clemson INFORMS Student Chapter, Clemson University",
+  "2026-present President, Clemson INFORMS Student Chapter, Clemson University",
 ];
 
 function Section({

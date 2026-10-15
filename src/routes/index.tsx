@@ -70,7 +70,7 @@ function Home() {
       <section className="relative noise grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div>
           <h1 className="mt-4 font-serif text-4xl leading-[1.05] text-foreground sm:text-4xl">
-            Zhiwen (Ivan) Huang
+            Zhiwen (Ivan) Huang (黄志文)
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
             I am a Ph.D. candidate in the{" "}
